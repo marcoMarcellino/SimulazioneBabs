@@ -11,7 +11,7 @@ public class TestDAO {
 		
 		BabsDAO dao = new BabsDAO();
 
-		List<Station> stations = dao.getAllStations();
+		/*List<Station> stations = dao.getAllStations();
 		
 		for (Station s : stations) {
 			System.out.format("%2d %-20s\n", s.getStationID(), s.getName());
@@ -19,6 +19,6 @@ public class TestDAO {
 
 		List<Trip> trips = dao.getAllTrips();
 		System.out.format("Found %d trips", trips.size());
-
+*/
 	}
 }

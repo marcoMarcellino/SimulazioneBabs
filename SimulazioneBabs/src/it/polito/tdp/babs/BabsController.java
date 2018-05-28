@@ -2,8 +2,10 @@ package it.polito.tdp.babs;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.babs.model.CountResult;
 import it.polito.tdp.babs.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,12 +38,41 @@ public class BabsController {
 
 	@FXML
 	void doContaTrip(ActionEvent event) {
-
+		try {
+			
+        txtResult.clear();
+		LocalDate date = pickData.getValue();
+		List<CountResult> results = model.getTripCounts(date);
+		if(results==null) {
+			txtResult.setText("No trip per la data selezionata");
+			return;
+		}
+		for(CountResult cc : results) {
+			txtResult.appendText(cc.toString());
+		}
+		} catch (Exception e) {
+			txtResult.setText("Errore Connessione DB");
+		}
+		
 	}
 
 	@FXML
 	void doSimula(ActionEvent event) {
+		try {
+			txtResult.clear();
+			LocalDate date = pickData.getValue();
+			
+			if(date.getDayOfWeek().getValue()>4) {// 4= venerdi
+			txtResult.setText("Selezionare una data da lunedi al venerdi");
+			return;
+			}
+			Double k = sliderK.getValue();
+			model.simula(date,k);
+			
+		} catch (Exception e) {
+			txtResult.setText("Errore Connessione DB");
 
+		}
 	}
 
 	@FXML
